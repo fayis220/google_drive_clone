@@ -4,18 +4,15 @@ const jwt = require("jsonwebtoken");
 
 const googleLogin = async (req, res) => {
   try {
-    const { idToken } = req.body; // Get token from frontend
+    const { idToken } = req.body;
 
     if (!idToken) {
       return res.status(400).json({ message: "ID Token is required" });
     }
 
-    // Verify Firebase ID token
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const { uid, email, name, picture } = decodedToken;
 
-    // Check if user exists in database (optional)
-    // If user doesn't exist, create a new one in MongoDB
     let user = await User.findOne({ firebaseId: uid });
     if (!user) {
       user = new User({
@@ -28,7 +25,6 @@ const googleLogin = async (req, res) => {
       await user.save();
     }
 
-    // Generate a JWT token for session handling
     const jwtToken = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,

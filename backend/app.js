@@ -14,7 +14,7 @@ app.use(cors());
 Setup.setUpFirebase();
 
 const indexRouter = require("./routes/index");
-// app.use(require("./utils/response/  "));
+app.use(require("./utils/response/responseHandler"));
 // app.set("views", path.join(__dirname, "views"));
 
 // app.set("view engine", "ejs");

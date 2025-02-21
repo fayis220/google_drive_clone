@@ -14,13 +14,6 @@ const googleLogin = async (req, res) => {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const { uid, email, name, picture } = decodedToken;
 
-    console.log("id");
-    console.log(uid);
-    console.log(email);
-    console.log(name);
-    console.log(picture);
-    console.log("id");
-
     // Check if user exists in database (optional)
     // If user doesn't exist, create a new one in MongoDB
     let user = await User.findOne({ firebaseId: uid });

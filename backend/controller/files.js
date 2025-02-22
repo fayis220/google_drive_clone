@@ -114,4 +114,25 @@ const searchFiles = async (req, res) => {
   }
 };
 
-module.exports = { fileUpload, deleteFile, renameFile, searchFiles };
+const getAllFiles = async (req, res) => {
+  try {
+    const files = await FileMetadata.find(); // Fetch all files
+
+    if (!files.length) {
+      return res.status(404).json({ message: "No files found" });
+    }
+
+    res.json({ message: "Files retrieved successfully", data: files });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = {
+  fileUpload,
+  deleteFile,
+  renameFile,
+  searchFiles,
+  getAllFiles,
+};

@@ -17,5 +17,6 @@ router.post(
 router.delete("/api/file/delete", userRequired, fileController.deleteFile);
 router.patch("/api/file/rename", userRequired, fileController.renameFile);
 router.get("/api/file/search", userRequired, fileController.searchFiles);
+router.get("/api/file/list", userRequired, fileController.getAllFiles);
 
 module.exports = router;
